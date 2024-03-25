@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk pacarku❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root{
+            --width:176px;
+            --kanan: 10deg;
+            --kiri: -10deg;
+            --awal-kanan : 200deg;
+            --awal-kiri : -200deg;
+        }
+        body{
+            background-image: url(/asset/bg.png); 
+            background-repeat: no-repeat;
+            background-position: center; 
+            height: 100dvh;
+            background-size: cover;
+        }
+        .img1{
+            animation: img1 1s ease-in-out;
+            rotate: var(--kiri);
+        }
+        .img2{
+            animation: img2 1s ease-in-out;
+            rotate: var(--kiri);
+        }
+
+        .anim1{
+            animation: anim1 1s ease-in-out;
+            transform: translate(-200px, 50px);
+            rotate: var(--kanan);
+        }
+        
+        .anim2{
+            animation: anim2 1s ease-in-out;
+            transform: translate(200px, -50px);
+            rotate: var(--kanan);
+        }
+
+        .close-anim{
+            animation: btnClose 1s ease-out;
+        }
+
+        .next-anim{
+            animation: next 1s ease-out;
+        }
+        @keyframes img1 {
+            from{
+                width: 100px;
+                rotate: var(--awal-kiri);
+            }to{
+                width: var(--width);
+                rotate: var(--kiri);
+            }
+        }
+        @keyframes img2 {
+            from{
+                width: 100px;
+                rotate: var(--awal-kanan);
+            }to{
+                width: var(--width);
+                rotate: var(--kiri);
+            }
+        }
+
+        @keyframes anim1 {
+            from{
+                transform: translate(0, 0);
+                rotate: var(--kiri);
+
+            }to{
+                transform: translate(-200px, 50px);
+                rotate: var(--kanan);
+            }
+        }
+        @keyframes anim2 {
+            from{
+                transform: translate(0, 0);
+                rotate: var(--kiri);
+
+            }to{
+                transform: translate(200px, -50px);
+                rotate: var(--kanan);
+            }
+        }
+
+        @keyframes btnClose {
+            from{
+                left: 0;
+            }to{
+                left: 87.4%;
+            }
+        }
+
+        @keyframes next {
+            from{
+                right: 0;
+            }to{
+                right: 82.1%;
+            }
+        }
+    </style>
+</head>
+<body class="">
+    <div class="w-full mt-32 flex justify-center flex-col text-center">
+        <h1 class="font-bold text-2xl text-pink-400">click the present!</h1>
+        <button id="btn-kado" class="mx-auto"><img width="400px" src="/asset/pngtree-3d-shining-gift-box-with-red-color-and-gold-tape-png-image_6249152.png" alt=""></button>
+    </div>
+    <div class="hidden bg-purple-500 w-[80%] absolute left-1/2 top-20 -translate-x-1/2 p-4" id="modal-kado">
+        <div class=" w-full h-[80vh] overflow-hidden">
+            <button id="btn-close" class="w-full relative h-10"><img id="silang" src="asset/rectangle-xmark-regular.svg" class="w-10 top-0 absolute " alt=""></button>
+            <div class="flex gap-4 justify-center align-middle ">
+                <div id="content1" class=" w-[50%] mt-3 text-white font-semibold"></div>
+                <div id="content2" class=" w-[50%] mt-36 text-yellow-200 font-semibold"></div>
+                <div class="invisible absolute"><audio id="content3"><source src="/asset/lagu.mp3"></audio></div>
+                <div id="content4" class=" w-[50%] mt-36 text-yellow-200 font-semibold hidden"></div>
+                <div id="content5" class=" w-[50%] mt-3  text-white font-semibold hidden"></div>
+                <div id="content6" class="text-4xl mt-5 hidden text-center">❤️</div>
+            </div>
+            <div class="absolute top-5 w-[90%]">
+                <div class="relative">
+                    <h1 id="judul" class=" hidden absolute font-bold text-2xl right-[93px] z-10 text-white"> Abadi</h1>
+                </div>
+            </div>
+            <div class="absolute left-[50%] -translate-x-1/2 top-1/2 -translate-y-1/2">
+                <div class="relative"><div id="count" class="hidden text-center"><h1 class="font-bold text-lg ">Tunggu 5 detik lagi</h1><br><span class="font-bold text-red-600 text-2xl" id="counter">5</span></div></div>
+            </div>
+            <div class="w-[90] relative mt-3">
+                <button class="border border-green-700 absolute right-0 text-white hover:bg-green-700 rounded-lg px-3 py-1 bg-green-600" id="next">Next</button>
+            </div>
+            <img id="img1" src="/asset/e.jpg" class="w-44 rounded-lg absolute -top-16 -right-5" alt="">
+            <img id="img2" src="/asset/d.jpg" class="w-44 rounded-lg absolute -bottom-16 -left-5" alt="">
+        </div>
+    </div>
+
+    <script>
+        const btnKado = document.getElementById('btn-kado');
+        const next = document.getElementById('next');
+        var klik = 0;
+        const btnClose = document.getElementById('btn-close');
+        const modalKado = document.getElementById('modal-kado');
+        const img1 = document.getElementById('img1');
+        const img2 = document.getElementById('img2');
+        const text1 = document.getElementById('content1');
+        const text2 = document.getElementById('content2');
+        var audio = document.getElementById('content3');
+        const text4 = document.getElementById('content4');
+        const text5 = document.getElementById('content5');
+        const love6 = document.getElementById('content6');
+        var counter = document.getElementById('count');
+        var counting = document.getElementById('counter');
+        var silang = document.getElementById('silang');
+        var judul = document.getElementById('judul');
+        var count = 5;
+
+        btnClose.addEventListener('click', ()=>{
+            modalKado.classList.add('hidden');
+        });
+
+        btnKado.addEventListener('click', ()=>{
+            modalKado.classList.toggle("hidden");
+            img1.classList.add('img1');
+            img2.classList.add('img2');
+            text1.innerHTML = 'Selamat ulang tahunn sayanggkuuuu, cintakuuuuu, ratukuuuuuuu. Semoga panjang umur, sehat selalu, selalu sabar menghadapi pacarmu yang sanagat random ini😁, semangatt jalani hari mu, wish you all the best lah pokok nya. aku punya pantun <br/><span class="text-red-600 font-bold ">malam malam potong kuku,<br/>i love you forever deh buat kamu</span>';
+
+            text2.innerHTML = "indah nya seperti permata, cantiknya seperti dewi, manisnya seperti gula, hatinya putih bersih bagaikan mutiara, sabarnya setinggi langit, cintanya sedalam samudra, sayangnya sebanyak varian planet di luar angkasa, siapa lagi kalo bukan Almira rahma illiyn, seorang anak tunggal yang sangat baik dan sayang pacarnya"
+        });
+        
+        next.addEventListener('click',()=>{
+            const image1 = img1.classList;
+            const image2 = img2.classList;
+            
+            if (klik == 0) {
+                text1.classList.add('hidden');
+                text2.classList.add('hidden');
+                next.classList.add('hidden', 'next-anim');
+                
+                image1.add('anim1');
+                image2.add('anim2');
+                silang.classList.add('left-[87.4%]', 'close-anim');
+    
+                if (image1.contains('anim')) {
+                    image1.remove('img1');
+                    image2.remove('img2');
+                }
+
+                setTimeout(() => {
+                    audio.play();
+                }, 1000);
+
+                audio.addEventListener("play", function() {
+                    judul.classList.remove('hidden');
+                    next.classList.add('bg-gray-200', 'text-black');
+                    next.classList.remove('hidden', 'bg-green-600', 'border-green-700', 'hover:bg-green-700', 'right-0');
+                    next.disabled = true;
+                    text4.classList.remove('hidden');
+                    text5.classList.remove('hidden');
+                    text5.innerHTML = 'Ku menemukan mu, saat hancurnya hati ku <br/> Ku merindukanmu, setiap detik menit ku <br/> Ku mencintai mu, setulus jiwa ragaku <br/> Ku menemanimu, sampai akhir khayat ku <br/><br/> Aku akan selalu ada di sini <br/> Menemanimu di kala hati bersedih <br/> Aku mohon tetap lah berada di sini <br/> Menjalin cinta yang suci, dengan abadi';
+
+                    text4.innerHTML = '<span class="text-red-700">M</span>ari bersama ku, jalani hari hari mu <br/> <span class="text-red-700">I</span>si memori ku, penuhi dengan foto mu <br/> <span class="text-red-700">R</span>asa kan cinta ku, ini spesial untukmu <br/> <span class="text-red-700">A</span>ku akan slalu, selalu memikirkan mu <br/> <br/> Aku akan selalu ada di sini <br/> Menemanimu di kala hati bersedih <br/> Aku mohon tetap lah berada di sini <br/> Menjalin cinta yang suci, dengan abadi 3x';
+                });
+                
+                audio.addEventListener("ended", function() {
+                    next.disabled = false;
+                    next.classList.remove('bg-gray-200', 'text-black');
+                    next.classList.add('bg-green-600', 'border-green-700', 'hover:bg-green-700');
+                });
+            }else if(klik == 1){
+                judul.classList.add('hidden');
+                image1.add('hidden');
+                image2.add('hidden');
+                text4.classList.add('hidden');
+                text5.classList.add('hidden');
+                next.classList.add('hidden');
+                btnClose.classList.add('hidden');
+                counter.classList.remove('hidden');
+
+                var fps = 0.2;
+
+                const hitung = 
+                setInterval(() => {
+                    count -= 1;
+                    counting.textContent = count;
+                    if (count == 0) {
+                        clearInterval(hitung);
+                        counter.classList.add('hidden');
+                        love6.classList.remove('hidden');
+                        const love = 
+                        setInterval(()=>{
+                            love6.textContent += "❤️"
+                            fps *= 2;
+                            if(fps == 1.5845632502852868e+28){
+                                clearInterval(love);
+                                modalKado.classList.add('hidden');
+                                btnKado.disabled = true;
+                            }
+                        }, 50/fps);
+                    }
+                }, 1000);
+
+            }
+
+            klik ++;
+            console.log(klik);
+        });
+            
+    </script>
+</body>
+</html>
